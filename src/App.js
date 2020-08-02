@@ -34,7 +34,20 @@ const App = () => {
     getCountriesData();
   }, []);
 
-  const onCountryChange = () => {};
+  const onCountryChange = async (e) => {
+    const countryCode = e.target.value;
+
+    const url =
+      countryCode === "worldwide"
+        ? "https://disease.sh/v3/covid-19/all"
+        : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+    await fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        setInputCountry(countryCode);
+        setCountryInfo(data);
+      });
+  };
 
   const {cases, todayCases, deaths, todayDeaths, recovered, todayRecovered} = countryInfo;
 
@@ -46,13 +59,12 @@ const App = () => {
         </div>
 
         <FormControl className="app__dropdown">
-          <Select variant="outlined" value={country}>
+          <Select variant="outlined" value={country} onChange={onCountryChange}>
             <MenuItem value="worldwide">Worldwide</MenuItem>
             {countries.map(country => (
               <MenuItem
                 key={country.name}
-                value={country.value}
-                onChange={onCountryChange}>
+                value={country.value}>
                 {country.name}
               </MenuItem>
             ))}
