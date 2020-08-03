@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import InfoBox from './InfoBox';
+import CovidMap from './components/CovidMap';
 import {FormControl, Select, MenuItem} from '@material-ui/core';
 
 import './App.css';
@@ -77,10 +78,10 @@ const App = () => {
 					<InfoBox title="Recovered Cases" cases={recovered} todayCases={todayRecovered} />
 				</div>
 
+        <CovidMap countries={countries}/>
+
         {/* Table */}
         {/* Graph */}
-
-        {/* Map */}
       </div>
     </div>
   );

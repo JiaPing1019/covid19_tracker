@@ -2,6 +2,9 @@
   margin: 0;
 }
 
+.app {
+  padding: 0 10px;
+}
 body {
   background-color: #f4f6fa;
 }
