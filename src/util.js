@@ -2,6 +2,10 @@ import React from 'react';
 import numeral from 'numeral';
 import {Circle, Popup} from 'react-leaflet';
 
+export const sortDataByCases = (data) => {
+  return data.sort((a, b) => a.cases > b.cases ? -1 : 1);
+};
+
 export const showDataOnMap = (data, casesType) =>
   data.map(
     country =>

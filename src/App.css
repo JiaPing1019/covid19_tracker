@@ -2,11 +2,15 @@
   margin: 0;
 }
 
-.app {
-  padding: 0 10px;
-}
 body {
   background-color: #f4f6fa;
+}
+
+.app {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #f5f6fa;
+  padding: 20px;
 }
 
 .app__header {
@@ -31,4 +35,16 @@ body {
 
 .app__infobox {
   display: flex;
+  justify-content: space-between;
+}
+
+.app__information > h3 {
+  color: #6a5d5d;
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.app__information > h3:last-of-type {
+  margin-top: 1rem;
 }

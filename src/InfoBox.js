@@ -4,32 +4,31 @@ import {Card, CardContent, Typography} from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
-    width: 200,
-		marginRight: 5
+    width: '33%',
+    marginRight: 5,
   },
   title: {
     marginBottom: 5,
     fontSize: 16,
     fontWeight: 600,
-  	display: 'flex',
-  	alignItems: 'center',	
-		justifyContent: 'center',
-
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-	todayCount: {
+  todayCount: {
     fontSize: 16,
-		display: 'flex',
-  	alignItems: 'center',	
-		justifyContent: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 5,
-		color: '#f00'
-	},
-	totalCount: {
+    color: '#f00',
+  },
+  totalCount: {
     fontSize: 16,
-		display: 'flex',
-  	alignItems: 'center',	
-		justifyContent: 'center',
-	},
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 const InfoBox = props => {
