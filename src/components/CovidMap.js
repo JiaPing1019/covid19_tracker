@@ -4,7 +4,6 @@ import { showDataOnMap } from "./../util";
 
 import './CovidMap.css';
 
-
 const CovidMap = ({countries}) => {
   const [casesType, setCasesType] = useState("cases");
   const [zoom, setZoom] = useState(11)

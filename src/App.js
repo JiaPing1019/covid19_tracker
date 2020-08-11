@@ -4,7 +4,7 @@ import CovidMap from './components/CovidMap';
 import RightSidebar from './components/RightSidebar';
 import {FormControl, Select, MenuItem} from '@material-ui/core';
 import {sortDataByCases} from './util';
-import 'leaflet/dist/leaflet.css';
+import {COLOR_CASES, COLOR_DEATHS, COLOR_RECOVERED} from './Constants';
 
 import './App.css';
 
@@ -14,6 +14,8 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [mapCountries, setMapCountries] = useState([]);
   const [tableData, setTableData] = useState([]);
+  // cases, deaths, recovered
+  const [casesType, setCasesType] = useState('cases');
 
   useEffect(() => {
     fetch('https://disease.sh/v3/covid-19/all')
@@ -87,23 +89,30 @@ const App = () => {
         </FormControl>
 
         <div className="app__infobox">
-          <InfoBox title="Today Cases" cases={cases} todayCases={todayCases} />
+          <InfoBox
+            title="Today Cases"
+            cases={cases}
+            todayCases={todayCases}
+            color={COLOR_CASES}
+          />
           <InfoBox
             title="Death Cases"
             cases={deaths}
             todayCases={todayDeaths}
+            color={COLOR_DEATHS}
           />
           <InfoBox
             title="Recovered Cases"
             cases={recovered}
             todayCases={todayRecovered}
+            color={COLOR_RECOVERED}
           />
         </div>
         <CovidMap countries={countries} />
       </div>
 
       <div className="app__right">
-        <RightSidebar tableData={tableData} />
+        <RightSidebar tableData={tableData} casesType={casesType} />
       </div>
     </div>
   );

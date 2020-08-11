@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   },
   title: {
     marginBottom: 5,
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 600,
     display: 'flex',
     alignItems: 'center',
@@ -31,14 +31,14 @@ const useStyles = makeStyles({
   },
 });
 
-const InfoBox = props => {
+const InfoBox = ({title, cases, todayCases, color}) => {
   const classes = useStyles();
-  const {title, cases, todayCases} = props;
+  console.log(color)
 
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
-        <Typography className={classes.title}>{title}</Typography>
+        <Typography className={classes.title} style={{color}}>{title}</Typography>
         <Typography className={classes.todayCount}> + {todayCases}</Typography>
         <Typography className={classes.totalCount}>{cases}</Typography>
       </CardContent>

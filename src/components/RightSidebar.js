@@ -1,19 +1,27 @@
 import React, {useState} from 'react';
 import Table from './Table';
-
-import './RightSidebar.css';
+import LineGraph from './LineGraph';
+import {COLOR_CASES, COLOR_DEATHS, COLOR_RECOVERED} from './../Constants';
 import {Card, CardContent} from '@material-ui/core';
 
-const RightSidebar = ({tableData}) => {
+import './RightSidebar.css';
+
+const RightSidebar = ({tableData, casesType}) => {
+  console.log(tableData);
   return (
-    <Card>
-      <CardContent>
-        <div className="app__information">
-          <h3>Live Cases by Country</h3>
-          <Table countries={tableData} />
-        </div>
-      </CardContent>
-    </Card>
+    <div>
+      <Card>
+        <CardContent>
+          <div className="app__information">
+            <h3>Live Cases by Country</h3>
+            <Table countries={tableData} />
+          </div>
+          <LineGraph casesType="cases" color={COLOR_CASES} />
+          <LineGraph casesType="deaths" color={COLOR_DEATHS} />
+          <LineGraph casesType="recovered" color={COLOR_RECOVERED} />
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
