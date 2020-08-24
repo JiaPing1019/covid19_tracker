@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Line} from 'react-chartjs-2';
 import numeral from 'numeral';
+import appContext from '../context/appContext';
+import {fetchURL} from '../util';
 
 import './LineGraph.css';
 
@@ -50,13 +52,21 @@ const options = {
 };
 
 const LineGraph = ({casesType, color}) => {
+  const props = useContext(appContext);
   const [historyData, setHistoryData] = useState({});
+  const lat = props.countryInfo.countryInfo ? props.countryInfo.countryInfo.lat : undefined
+  const long = props.countryInfo.countryInfo ? props.countryInfo.countryInfo.long : undefined
+  const country = props.country;
+  const url = fetchURL(country);
 
   useEffect(() => {
     const fetchData = async () => {
-      fetch('https://disease.sh/v3/covid-19/historical/all?lastdays=30')
+      fetch(`${url}?lastdays=30`)
         .then(response => response.json())
         .then(data => {
+          // Need to have this line because
+          // the format of world and country is different  
+          data = data['timeline'] ? data['timeline'] : data
           let typeData = data[casesType];
           let caseChart = buildChartData(typeData);
 
@@ -65,7 +75,7 @@ const LineGraph = ({casesType, color}) => {
     };
 
     fetchData();
-  }, [casesType]);
+  }, [country]);
 
   const buildChartData = (data) => {
     let chartData = [];
@@ -86,21 +96,21 @@ const LineGraph = ({casesType, color}) => {
   };
 
   return (
-    <div>
-      {historyData.length > 0 && (
-        <Line
-          data={{
-            datasets: [
-              {
-                backgroundColor: color, 
-                data: historyData,
-              },
-            ],
-          }}
-          options={options}
-        />
-      )}
-    </div>
+      <div className="graph__information">
+        {historyData.length > 0 && (
+          <Line
+            data={{
+              datasets: [
+                {
+                  backgroundColor: color, 
+                  data: historyData,
+                },
+              ],
+            }}
+            options={options}
+          />
+        )}
+      </div>
   );
 };
 

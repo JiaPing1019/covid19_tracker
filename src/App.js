@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import InfoBox from './InfoBox';
+import InfoBox from './components/InfoBox';
 import CovidMap from './components/CovidMap';
 import RightSidebar from './components/RightSidebar';
 import {FormControl, Select, MenuItem} from '@material-ui/core';
 import {sortDataByCases} from './util';
 import {COLOR_CASES, COLOR_DEATHS, COLOR_RECOVERED} from './Constants';
+import appContext from './context/appContext';
 
 import './App.css';
 
@@ -71,50 +72,52 @@ const App = () => {
   } = countryInfo;
 
   return (
-    <div className="app">
-      <div className="app__left">
-        <div className="app__header">
-          <h1>COVID-19 TRACKER</h1>
+    <appContext.Provider value={{country: country, countryInfo: countryInfo}}>
+      <div className="app">
+        <div className="app__left">
+          <div className="app__header">
+            <h1>COVID-19 TRACKER</h1>
+          </div>
+
+          <FormControl className="app__dropdown">
+            <Select variant="outlined" value={country} onChange={onCountryChange}>
+              <MenuItem value="worldwide">Worldwide</MenuItem>
+              {countries.map(country => (
+                <MenuItem key={country.name} value={country.value}>
+                  {country.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <div className="app__infobox">
+            <InfoBox
+              title="Today Cases"
+              cases={cases}
+              todayCases={todayCases}c
+              color={COLOR_CASES}
+            />
+            <InfoBox
+              title="Death Cases"
+              cases={deaths}
+              todayCases={todayDeaths}
+              color={COLOR_DEATHS}
+            />
+            <InfoBox
+              title="Recovered Cases"
+              cases={recovered}
+              todayCases={todayRecovered}
+              color={COLOR_RECOVERED}
+            />
+          </div>
+          <CovidMap countries={countries} />
         </div>
 
-        <FormControl className="app__dropdown">
-          <Select variant="outlined" value={country} onChange={onCountryChange}>
-            <MenuItem value="worldwide">Worldwide</MenuItem>
-            {countries.map(country => (
-              <MenuItem key={country.name} value={country.value}>
-                {country.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-
-        <div className="app__infobox">
-          <InfoBox
-            title="Today Cases"
-            cases={cases}
-            todayCases={todayCases}
-            color={COLOR_CASES}
-          />
-          <InfoBox
-            title="Death Cases"
-            cases={deaths}
-            todayCases={todayDeaths}
-            color={COLOR_DEATHS}
-          />
-          <InfoBox
-            title="Recovered Cases"
-            cases={recovered}
-            todayCases={todayRecovered}
-            color={COLOR_RECOVERED}
-          />
+        <div className="app__right">
+          <RightSidebar tableData={tableData} casesType={casesType} />
         </div>
-        <CovidMap countries={countries} />
       </div>
-
-      <div className="app__right">
-        <RightSidebar tableData={tableData} casesType={casesType} />
-      </div>
-    </div>
+    </appContext.Provider>
   );
 };
 

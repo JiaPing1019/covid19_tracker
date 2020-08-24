@@ -33,7 +33,6 @@ const useStyles = makeStyles({
 
 const InfoBox = ({title, cases, todayCases, color}) => {
   const classes = useStyles();
-  console.log(color)
 
   return (
     <Card className={classes.root} variant="outlined">

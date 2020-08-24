@@ -2,6 +2,14 @@ import React from 'react';
 import numeral from 'numeral';
 import {Circle, Popup} from 'react-leaflet';
 
+export const fetchURL = (countryCode) => {
+  if (countryCode === 'worldwide') {
+     return 'https://disease.sh/v3/covid-19/historical/all'
+  } else {
+    return `https://disease.sh/v3/covid-19/historical/${countryCode}`;
+  }
+};
+
 export const sortDataByCases = (data) => {
   return data.sort((a, b) => a.cases > b.cases ? -1 : 1);
 };

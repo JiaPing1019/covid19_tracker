@@ -13,12 +13,15 @@ const RightSidebar = ({tableData, casesType}) => {
       <Card>
         <CardContent>
           <div className="app__information">
+            <h3>History graph</h3>
+            <LineGraph casesType="cases" color={COLOR_CASES} />
+            <LineGraph casesType="deaths" color={COLOR_DEATHS} />
+            <LineGraph casesType="recovered" color={COLOR_RECOVERED} />
+          </div>
+          <div className="app__information">
             <h3>Live Cases by Country</h3>
             <Table countries={tableData} />
           </div>
-          <LineGraph casesType="cases" color={COLOR_CASES} />
-          <LineGraph casesType="deaths" color={COLOR_DEATHS} />
-          <LineGraph casesType="recovered" color={COLOR_RECOVERED} />
         </CardContent>
       </Card>
     </div>

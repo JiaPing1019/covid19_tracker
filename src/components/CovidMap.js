@@ -1,14 +1,29 @@
-import React, {useState} from 'react';
-import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
-import { showDataOnMap } from "./../util";
+import React, {useState, useEffect, useContext} from 'react';
+import {Map, TileLayer} from 'react-leaflet';
+import {showDataOnMap} from './../util';
+import appContext from '../context/appContext';
 
 import './CovidMap.css';
 
+const fetchLocation = country => {
+  // Set default to Tokyo
+  const lat = country.countryInfo ? country.countryInfo.lat : 35.6804;
+  const long = country.countryInfo ? country.countryInfo.long :  139.769;
+
+  return {lat: lat, lng: long};
+};
+
 const CovidMap = ({countries}) => {
-  const [casesType, setCasesType] = useState("cases");
-  const [zoom, setZoom] = useState(11)
-  // Locate to Tokyo for now
-  const [center, setCenter] = useState({ lat: 35.6804, lng: 139.7690 })
+  const props = useContext(appContext);
+  const countryInfo = props.countryInfo
+  const [casesType, setCasesType] = useState('cases');
+  const [zoom, setZoom] = useState(5);
+  const [center, setCenter] = useState({lat: 35.6804, lng: 139.769});
+
+  useEffect(() => {
+    const locationHash = fetchLocation(countryInfo);
+    setCenter(locationHash);
+  }, [countryInfo]);
 
   return (
     <div className="map">
