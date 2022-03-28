@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Table from './Table';
 import LineGraph from './LineGraph';
 import {COLOR_CASES, COLOR_DEATHS, COLOR_RECOVERED} from './../Constants';

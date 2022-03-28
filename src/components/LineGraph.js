@@ -54,8 +54,6 @@ const options = {
 const LineGraph = ({casesType, color}) => {
   const props = useContext(appContext);
   const [historyData, setHistoryData] = useState({});
-  const lat = props.countryInfo.countryInfo ? props.countryInfo.countryInfo.lat : undefined
-  const long = props.countryInfo.countryInfo ? props.countryInfo.countryInfo.long : undefined
   const country = props.country;
   const url = fetchURL(country);
 
@@ -75,7 +73,7 @@ const LineGraph = ({casesType, color}) => {
     };
 
     fetchData();
-  }, [country]);
+  }, [casesType, country, url]);
 
   const buildChartData = (data) => {
     let chartData = [];
